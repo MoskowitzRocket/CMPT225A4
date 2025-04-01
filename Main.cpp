@@ -1,151 +1,190 @@
+#include <iostream>
+#include <iomanip>
+#include <chrono>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+
+// Assuming these class declarations are in separate header files
 #include "BinarySearchTree.h"
 #include "SplayTree.h"
 #include "RedBlackTree.h"
-#include <iostream>
-#include <random>
-#include <vector>
 
+// Constants for tree sizes
+#define REPORT_SIZE_N1 1000000   // Large size for timing reports
+#define REPORT_SIZE_N2 10000000   // Larger size for timing reports
+#define DISPLAY_SIZE_N1 10     // Small size for readable tree display
+#define DISPLAY_SIZE_N2 20     // Slightly larger size for tree display
 
-int randInt(int low, int hi)
-{
-  int n = hi - low + 1;
-  int i = rand() % n;
-  if (i < 0)
-  {
-    i = -i;
-  }
-  return low + i;
+// Template function to populate a tree with random values
+template <typename Tree>
+void populateTree(Tree& tree, int size) {
+    for (int i = 0; i < size; i++) {
+        tree.insert(rand() % (size * 10)); // Random values between 0 and size*10-1
+    }
 }
 
-
-
-int main(){
-
-    const int n1Size = 1000000;
-    const int n1SizeDemo = 10;
-    const int n2Size = 10000000;
-    const int n2SizeDemo = 25;
-
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> distn1(1, n1Size);
-    std::uniform_int_distribution<int> distn1demo(1, n1SizeDemo);
-    std::uniform_int_distribution<int> distn2(1,n2Size);
-    std::uniform_int_distribution<int> distn2demo(1, n2SizeDemo);
+// Template function to time the counteven operation
+template <typename Tree>
+double timeCountEven(Tree& tree) {
+    auto start = std::chrono::high_resolution_clock::now();
+    int count = tree.countEven();
+    auto end = std::chrono::high_resolution_clock::now();
     
-    std::vector<int> n1;
-    n1.reserve(n1Size);
-    std::vector<int> n2;
-    n2.reserve(n2Size);
+    std::chrono::duration<double, std::milli> duration = end - start;
+    return duration.count();
+}
 
-    std::vector<int> n1Demo;
-    n1Demo.reserve(n1SizeDemo);
-    std::vector<int> n2Demo;
-    n2Demo.resize(n2SizeDemo);
+int main(int argc, char* argv[]) {
 
 
-    for (size_t i{0}; i < n1SizeDemo; i++)
-    {
-      n1Demo.push_back(distn1demo(gen));
-    }
-    for (size_t i{0}; i < n2SizeDemo; i++)
-    {
-      n2Demo.push_back(distn2demo(gen));
-    }
-
-
-    // for (size_t i{0}; i < n1Size; i++)
-    // {
-    //   n1.push_back(distn1(gen));
-    // }
-    // for (size_t i{0}; i < n2Size; i++)
-    // {
-    //   n2.push_back(distn2(gen));
-    // }
-    BinarySearchTree<int> bst1demo;
-    BinarySearchTree<int> bst2demo;
-
-    SplayTree<int> st1demo;
-    SplayTree<int> st2demo;
-
-    RedBlackTree<int> rbt1demo(-1);
-    RedBlackTree<int> rbt2demo(-1);
- 
-    // BinarySearchTree<int> bst1;
-    // BinarySearchTree<int> bst2;
-
-    // SplayTree<int> st1;
-    // SplayTree<int> st2;
-
-    // RedBlackTree<int> rbt1(-1);
-    // RedBlackTree<int> rbt2(-1);
- 
-    for (auto &i  : n1Demo) {
-        bst1demo.insert(i);
-    }
-    for (auto &i  : n2Demo) {
-        bst2demo.insert(i);
-    }
-    for (auto &i  : n1Demo) {
-        st1demo.insert(i);
-    }
-    for (auto &i  : n2Demo) {
-        st2demo.insert(i);
-    }
-    for (auto &i  : n1Demo) {
-        rbt1demo.insert(i);
-    }
-    for (auto &i  : n2Demo) {
-        rbt2demo.insert(i);
-    }
-
-
-
-
-    // for (auto &i  : n1) {
-    //     bst1.insert(i);
-    // }
-    // for (auto &i  : n2) {
-    //     bst2.insert(i);
-    // }
-    // for (auto &i  : n1) {
-    //     st1.insert(i);
-    // }
-    // for (auto &i  : n2) {
-    //     st2.insert(i);
-    // }
-    // for (auto &i  : n1) {
-    //     rbt1.insert(i);
-    // }
-    // for (auto &i  : n2) {
-    //     rbt2.insert(i);
-    // }
-
-    // cout << "Number of Even values in bst1 is: " << bst1.countEven() << endl;
-
-    // cout << "Number of Even values in bst2 is: " << bst2.countEven() << endl;
-
-    // cout << "Number of Even values in st1 is: " << st1.countEven() << endl;
-
-    // cout << "Number of Even values in st2 is: " << st2.countEven() << endl;
-
-    // cout << "Number of Even values in rbt1 is: " << rbt1.countEven() << endl;
-
-    // cout << "Number of Even values in rbt2 is: " << rbt2.countEven() << endl;
-
-    cout << "Demo to show t-display working on smaller Data structures!!\n\n";
-
-    bst1demo.tdisplay();
-    bst2demo.tdisplay();
-    st1demo.tdisplay();
-    st2demo.tdisplay(); 
-    rbt1demo.tdisplay();
-    rbt2demo.tdisplay();
+    // Set random seed
+    std::srand(std::time(nullptr));
     
-
-
+    // Determine if we're in report mode (timing measurements) or display mode
+    bool report_mode = true;  // Default to report mode with larger trees
     
-
-
+    // If command line argument "display" is provided, switch to display mode
+    if (argc > 1 && std::string(argv[1]) == "display") {
+        report_mode = false;
+    }
+    
+    int n1 = report_mode ? REPORT_SIZE_N1 : DISPLAY_SIZE_N1;
+    int n2 = report_mode ? REPORT_SIZE_N2 : DISPLAY_SIZE_N2;
+    
+    std::cout << "**Report: Tree Data Structure Performance Analysis**\n\n";
+    std::cout << "Data Structures: Binary Search Tree, Splay Tree, and Red-Black Tree\n";
+    std::cout << "Set sizes: n1 = " << n1 << " and n2 = " << n2 << "\n\n";
+    
+    // Table header for timing results
+    std::cout << std::left
+              << std::setw(20) << "Tree Type"
+              << std::setw(10) << "Size"
+              << std::setw(20) << "CountEven Time (ms)"
+              << "\n";
+    std::cout << std::setw(20) << "--------------------"
+              << std::setw(10) << "----------"
+              << std::setw(20) << "--------------------"
+              << "\n";
+    
+    // Create and test BinarySearchTree with n1 elements
+    BinarySearchTree<int> bst1;
+    populateTree(bst1, n1);
+    if (!report_mode) {
+        std::cout << "\nBinary Search Tree of size " << n1 << ":\n";
+        bst1.tdisplay();
+    }
+    double bst1_time = timeCountEven(bst1);
+    
+    std::cout << std::left
+              << std::setw(20) << "Binary Search Tree"
+              << std::setw(10) << n1
+              << std::setw(20) << std::fixed << std::setprecision(2) << bst1_time
+              << "\n";
+    
+    // Create and test BinarySearchTree with n2 elements
+    BinarySearchTree<int> bst2;
+    populateTree(bst2, n2);
+    if (!report_mode) {
+        std::cout << "\nBinary Search Tree of size " << n2 << ":\n";
+        bst2.tdisplay();
+    }
+    double bst2_time = timeCountEven(bst2);
+    
+    std::cout << std::left
+              << std::setw(20) << "Binary Search Tree"
+              << std::setw(10) << n2
+              << std::setw(20) << std::fixed << std::setprecision(2) << bst2_time
+              << "\n";
+    
+    // Create and test SplayTree with n1 elements
+    SplayTree<int> splay1;
+    populateTree(splay1, n1);
+    if (!report_mode) {
+        std::cout << "\nSplay Tree of size " << n1 << ":\n";
+        splay1.tdisplay();
+    }
+    double splay1_time = timeCountEven(splay1);
+    
+    std::cout << std::left
+              << std::setw(20) << "Splay Tree"
+              << std::setw(10) << n1
+              << std::setw(20) << std::fixed << std::setprecision(2) << splay1_time
+              << "\n";
+    
+    // Create and test SplayTree with n2 elements
+    SplayTree<int> splay2;
+    populateTree(splay2, n2);
+    if (!report_mode) {
+        std::cout << "\nSplay Tree of size " << n2 << ":\n";
+        splay2.tdisplay();
+    }
+    double splay2_time = timeCountEven(splay2);
+    
+    std::cout << std::left
+              << std::setw(20) << "Splay Tree"
+              << std::setw(10) << n2
+              << std::setw(20) << std::fixed << std::setprecision(2) << splay2_time
+              << "\n";
+    
+    // Create and test RedBlackTree with n1 elements
+    RedBlackTree<int> rb1(-1);
+    populateTree(rb1, n1);
+    if (!report_mode) {
+        std::cout << "\nRed-Black Tree of size " << n1 << ":\n";
+        rb1.tdisplay();
+    }
+    double rb1_time = timeCountEven(rb1);
+    
+    std::cout << std::left
+              << std::setw(20) << "Red-Black Tree"
+              << std::setw(10) << n1
+              << std::setw(20) << std::fixed << std::setprecision(2) << rb1_time
+              << "\n";
+    
+    // Create and test RedBlackTree with n2 elements
+    RedBlackTree<int> rb2(-1);
+    populateTree(rb2, n2);
+    if (!report_mode) {
+        std::cout << "\nRed-Black Tree of size " << n2 << ":\n";
+        rb2.tdisplay();
+    }
+    double rb2_time = timeCountEven(rb2);
+    
+    std::cout << std::left
+              << std::setw(20) << "Red-Black Tree"
+              << std::setw(10) << n2
+              << std::setw(20) << std::fixed << std::setprecision(2) << rb2_time
+              << "\n";
+    
+    // Analysis summary
+    std::cout << "\nAnalysis Summary:\n";
+    
+    // Compare performance at size n1
+    std::cout << "1. Performance Comparison at size n1 = " << n1 << ":\n";
+    double fastest_n1 = std::min({bst1_time, splay1_time, rb1_time});
+    std::cout << "   - Binary Search Tree: " << std::fixed << std::setprecision(2) << bst1_time << " ms ("
+              << std::fixed << std::setprecision(2) << (bst1_time / fastest_n1) << "x relative to fastest)\n";
+    std::cout << "   - Splay Tree: " << std::fixed << std::setprecision(2) << splay1_time << " ms ("
+              << std::fixed << std::setprecision(2) << (splay1_time / fastest_n1) << "x relative to fastest)\n";
+    std::cout << "   - Red-Black Tree: " << std::fixed << std::setprecision(2) << rb1_time << " ms ("
+              << std::fixed << std::setprecision(2) << (rb1_time / fastest_n1) << "x relative to fastest)\n";
+    
+    // Compare performance at size n2
+    std::cout << "2. Performance Comparison at size n2 = " << n2 << ":\n";
+    double fastest_n2 = std::min({bst2_time, splay2_time, rb2_time});
+    std::cout << "   - Binary Search Tree: " << std::fixed << std::setprecision(2) << bst2_time << " ms ("
+              << std::fixed << std::setprecision(2) << (bst2_time / fastest_n2) << "x relative to fastest)\n";
+    std::cout << "   - Splay Tree: " << std::fixed << std::setprecision(2) << splay2_time << " ms ("
+              << std::fixed << std::setprecision(2) << (splay2_time / fastest_n2) << "x relative to fastest)\n";
+    std::cout << "   - Red-Black Tree: " << std::fixed << std::setprecision(2) << rb2_time << " ms ("
+              << std::fixed << std::setprecision(2) << (rb2_time / fastest_n2) << "x relative to fastest)\n";
+    
+    // Scalability analysis
+    std::cout << "3. Scalability (n2/n1 = " << (n2 / n1) << "):\n";
+    std::cout << "   - Binary Search Tree: " << std::fixed << std::setprecision(2) << (bst2_time / bst1_time) << "x slower\n";
+    std::cout << "   - Splay Tree: " << std::fixed << std::setprecision(2) << (splay2_time / splay1_time) << "x slower\n";
+    std::cout << "   - Red-Black Tree: " << std::fixed << std::setprecision(2) << (rb2_time / rb1_time) << "x slower\n";
+    
     return 0;
 }

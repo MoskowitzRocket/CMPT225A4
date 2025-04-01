@@ -1,0 +1,31 @@
+rm -f Main.o main
+g++ -Wall -Wextra -std=c++20 -g -c Main.cpp -o Main.o
+g++ -Wall -Wextra -std=c++20 -g -o main Main.o
+./main
+**Report: Tree Data Structure Performance Analysis**
+
+Data Structures: Binary Search Tree, Splay Tree, and Red-Black Tree
+Set sizes: n1 = 1000000 and n2 = 10000000
+
+Tree Type           Size      CountEven Time (ms) 
+--------------------------------------------------
+Binary Search Tree  1000000   51.77               
+Binary Search Tree  10000000  574.95              
+Splay Tree          1000000   61.46               
+Splay Tree          10000000  591.20              
+Red-Black Tree      1000000   45.33               
+Red-Black Tree      10000000  526.65              
+
+Analysis Summary:
+1. Performance Comparison at size n1 = 1000000:
+   - Binary Search Tree: 51.77 ms (1.14x relative to fastest)
+   - Splay Tree: 61.46 ms (1.36x relative to fastest)
+   - Red-Black Tree: 45.33 ms (1.00x relative to fastest)
+2. Performance Comparison at size n2 = 10000000:
+   - Binary Search Tree: 574.95 ms (1.09x relative to fastest)
+   - Splay Tree: 591.20 ms (1.12x relative to fastest)
+   - Red-Black Tree: 526.65 ms (1.00x relative to fastest)
+3. Scalability (n2/n1 = 10):
+   - Binary Search Tree: 11.11x slower
+   - Splay Tree: 9.62x slower
+   - Red-Black Tree: 11.62x slower
