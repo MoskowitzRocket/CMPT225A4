@@ -367,12 +367,13 @@ class BinarySearchTree
       if(t!=nullptr)
       {
         int leftCount = countEven(t->left);
-        int rightCount = countEven(t->right);
         int val = 0;
         if (t->element % 2 == 0)
         {
           val = 1;
         }
+        int rightCount = countEven(t->right);
+       
         return val + leftCount + rightCount;
       }
       return 0;
