@@ -37,6 +37,7 @@ double timeCountEven(Tree& tree) {
 
 int main(int argc, char* argv[]) {
 
+    
 
     // Set random seed
     std::srand(std::time(nullptr));

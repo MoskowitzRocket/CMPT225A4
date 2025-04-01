@@ -352,13 +352,13 @@ class BinarySearchTree
     {
         if (t != nullptr)
         {
-            tdisplay(t->right, depth + 1);
+            tdisplay(t->left, depth + 1);
             for (int i = 0; i < depth; i++)
             {
                 cout << ">";
             }
             cout << t->element << endl;
-            tdisplay(t->left, depth + 1);
+            tdisplay(t->right, depth + 1);
         }
     }
 
