@@ -1,7 +1,6 @@
 #include "BinarySearchTree.h"
 #include "RedBlackTree.h"
 #include "SplayTree.h"
-// #include <ctime>
 #include <format>
 #include <iostream>
 #include <time.h>
@@ -92,13 +91,13 @@ int main() {
   cout << "size of n1 chosen is: " << N1 << ". Size of n2 chosen is: " << N2
        << "\n";
 
-  vector<int> v3(N1);
-  vector<int> v4(N2);
+  vector<int> dataN1(N1);
+  vector<int> dataN2(N2);
   for (int i = 0; i < N1; ++i) {
-    v3[i] = rand() % N1;
+    dataN1[i] = rand() % N1;
   }
   for (int i = 0; i < N2; ++i) {
-    v4[i] = rand() % N2;
+    dataN2[i] = rand() % N2;
   }
 
   BinarySearchTree<int> bstn1;
@@ -107,12 +106,19 @@ int main() {
   RedBlackTree<int> rbtn2(-1);
   SplayTree<int> sptn1;
   SplayTree<int> sptn2;
-  double timeInsertionBSTn1 = timeInsertion(bstn1, v3);
-  double timeInsertionBSTn2 = timeInsertion(bstn2, v4);
-  double timeInsertionRBTn1 = timeInsertion(rbtn1, v3);
-  double timeInsertionRBTn2 = timeInsertion(rbtn2, v4);
-  double timeInsertionSPTn1 = timeInsertion(sptn1, v3);
-  double timeInsertionSPTn2 = timeInsertion(sptn2, v4);
+  double timeInsertionBSTn1 = timeInsertion(bstn1, dataN1);
+  double timeInsertionBSTn2 = timeInsertion(bstn2, dataN2);
+  double timeInsertionRBTn1 = timeInsertion(rbtn1, dataN1);
+  double timeInsertionRBTn2 = timeInsertion(rbtn2, dataN2);
+  double timeInsertionSPTn1 = timeInsertion(sptn1, dataN1);
+  double timeInsertionSPTn2 = timeInsertion(sptn2, dataN2);
+  double timeCountEvenBSTn1 = timeCountEven(bstn1);
+  double timeCountEvenBSTn2 = timeCountEven(bstn2);
+  double timeCountEvenRBTn1 = timeCountEven(rbtn1);
+  double timeCountEvenRBTn2 = timeCountEven(rbtn2);
+  double timeCountEvenSPTn1 = timeCountEven(sptn1);
+  double timeCountEvenSPTn2 = timeCountEven(sptn2);
+
 //   cout << "Time to insert set of size n1 into bst: " << timeInsertionBSTn1
 //        << "\n";
 //   cout << "Time to insert set of size n2 into bst: " << timeInsertionBSTn2
@@ -126,13 +132,7 @@ int main() {
 //   cout << "Time to insert set of size n2 into spt: " << timeInsertionSPTn2
 //        << "\n";
 
-  double timeCountEvenBSTn1 = timeCountEven(bstn1);
-  double timeCountEvenBSTn2 = timeCountEven(bstn2);
-  double timeCountEvenRBTn1 = timeCountEven(rbtn1);
-  double timeCountEvenRBTn2 = timeCountEven(rbtn2);
-  double timeCountEvenSPTn1 = timeCountEven(sptn1);
-  double timeCountEvenSPTn2 = timeCountEven(sptn2);
-//   cout << "Time to traverse bst containing n1 items with countEven: "
+ //   cout << "Time to traverse bst containing n1 items with countEven: "
 //        << timeCountEvenBSTn1 << "\n";
 //   cout << "Time to traverse bst containing n2 items with countEven: "
 //        << timeCountEvenBSTn2 << "\n";
@@ -172,5 +172,6 @@ int main() {
                  "SPT(n1): {}, SPT(n2): {}\n",
                  timeCountEvenBSTn1, timeCountEvenBSTn2, timeCountEvenRBTn1,
                  timeCountEvenRBTn2, timeCountEvenSPTn1, timeCountEvenSPTn2);
+                 
   return 0;
 }
