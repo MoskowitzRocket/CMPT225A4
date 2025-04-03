@@ -162,7 +162,7 @@ int main() {
   cout << "Time to insert\n";
   cout << format("BST(n1): {}, BST(n2): {}\n"
                  "RBT(n1): {}, RBT(n2): {}\n"
-                 "SPT(n1): {}, SPT(n2): {}\n\n\n",
+                 "SPT(n1): {}, SPT(n2): {}\n\n",
                  timeInsertionBSTn1, timeInsertionBSTn2, timeInsertionRBTn1,
                  timeInsertionRBTn2, timeInsertionSPTn1, timeInsertionSPTn2);
 
