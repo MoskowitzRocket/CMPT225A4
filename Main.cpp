@@ -1,8 +1,13 @@
 #include "BinarySearchTree.h"
 #include "RedBlackTree.h"
 #include "SplayTree.h"
+#include <algorithm>
+#include <ctime>
 #include <format>
 #include <iostream>
+#include <iterator>
+#include <random>
+#include <set>
 #include <time.h>
 #include <vector>
 
@@ -37,68 +42,37 @@ template <typename Tree> double timeCountEven(Tree &t) {
   return elapsed_time(start, finish);
 }
 
+template <typename Tree> double timeTDisplay(Tree &t) {
+  clock_t start, finish;
+  start = clock();
+  // Stuff below is timed
+  t.tdisplay();
+  // Stuff above is timed
+  finish = clock();
+  return elapsed_time(start, finish);
+}
+
 int main() {
 
-  cout << "Smaller N1 and N2 size for demo tdisplay" << endl;
-  cout << "N1: 10 items, N2: 20 items" << endl;
-  const int N1Demo = 10;
-  const int N2Demo = 20;
-  vector<int> v1 = {5, 6, 1, 44, 512, 12, 41, 21, 7, 65};
-  vector<int> v2 = {213, 312, 32, 12, 54, 53, 65, 52, 14, 78,
-                    91,  43,  27, 89, 34, 67, 29, 73, 81, 99};
-
-  BinarySearchTree<int> bst1;
-  BinarySearchTree<int> bst2;
-  RedBlackTree<int> rbt1(-1);
-  RedBlackTree<int> rbt2(-1);
-  SplayTree<int> spt1;
-  SplayTree<int> spt2;
-
-  cout << "Binary Search Tree 1" << endl;
-  for (int i = 0; i < N1Demo; ++i) {
-    bst1.insert(v1[i]);
-  }
-  bst1.tdisplay();
-  cout << "Binary Search Tree 2" << endl;
-  for (int i = 0; i < N2Demo; ++i) {
-    bst2.insert(v2[i]);
-  }
-  bst2.tdisplay();
-  cout << "Red Black Tree 1" << endl;
-  for (int i = 0; i < N1Demo; ++i) {
-    rbt1.insert(v1[i]);
-  }
-  rbt1.tdisplay();
-  cout << "Red Black Tree 2" << endl;
-  for (int i = 0; i < N2Demo; ++i) {
-    rbt2.insert(v2[i]);
-  }
-  rbt2.tdisplay();
-  cout << "Splay Tree 1" << endl;
-  for (int i = 0; i < N1Demo; ++i) {
-    spt1.insert(v1[i]);
-  }
-  spt1.tdisplay();
-  cout << "Splay Tree 2" << endl;
-  for (int i = 0; i < N2Demo; ++i) {
-    spt2.insert(v2[i]);
-  }
-  spt2.tdisplay();
-
-  cout << "Larger N1 and N2 size for timing report" << endl;
   const int N1 = 1000000;
   const int N2 = 10000000;
+
   cout << "size of n1 chosen is: " << N1 << ". Size of n2 chosen is: " << N2
        << "\n";
 
   vector<int> dataN1(N1);
   vector<int> dataN2(N2);
   for (int i = 0; i < N1; ++i) {
-    dataN1[i] = rand() % N1;
+    dataN1[i] = i + 1;
   }
+
+  auto rng = std::default_random_engine{};
+  std::shuffle(std::begin(dataN1), std::end(dataN1), rng);
+
   for (int i = 0; i < N2; ++i) {
-    dataN2[i] = rand() % N2;
+    dataN2[i] = i + 1;
   }
+  std::shuffle(std::begin(dataN2), std::end(dataN2), rng);
 
   BinarySearchTree<int> bstn1;
   BinarySearchTree<int> bstn2;
@@ -118,32 +92,18 @@ int main() {
   double timeCountEvenRBTn2 = timeCountEven(rbtn2);
   double timeCountEvenSPTn1 = timeCountEven(sptn1);
   double timeCountEvenSPTn2 = timeCountEven(sptn2);
-
-//   cout << "Time to insert set of size n1 into bst: " << timeInsertionBSTn1
-//        << "\n";
-//   cout << "Time to insert set of size n2 into bst: " << timeInsertionBSTn2
-//        << "\n";
-//   cout << "Time to insert set of size n1 into rbt: " << timeInsertionRBTn1
-//        << "\n";
-//   cout << "Time to insert set of size n2 into rbt: " << timeInsertionRBTn2
-//        << "\n";
-//   cout << "Time to insert set of size n1 into spt: " << timeInsertionSPTn1
-//        << "\n";
-//   cout << "Time to insert set of size n2 into spt: " << timeInsertionSPTn2
-//        << "\n";
-
- //   cout << "Time to traverse bst containing n1 items with countEven: "
-//        << timeCountEvenBSTn1 << "\n";
-//   cout << "Time to traverse bst containing n2 items with countEven: "
-//        << timeCountEvenBSTn2 << "\n";
-//   cout << "Time to traverse rbt containing n1 items with countEven: "
-//        << timeCountEvenRBTn1 << "\n";
-//   cout << "Time to traverse rbt containing n2 items with countEven: "
-//        << timeCountEvenRBTn2 << "\n";
-//   cout << "Time to traverse spt containing n1 items with countEven: "
-//        << timeCountEvenSPTn1 << "\n";
-//   cout << "Time to traverse spt containing n2 items with countEven: "
-//        << timeCountEvenSPTn2 << "\n";
+  cout << "\nBST N1 Tdisplay\n\n";
+  double timeTdisplayBSTn1 = timeTDisplay(bstn1);
+  cout << "\nBST N2 Tdisplay\n\n";
+  double timeTdisplayBSTn2 = timeTDisplay(bstn2);
+  cout << "\nRBT N1 Tdisplay\n\n";
+  double timeTdisplayRBTn1 = timeTDisplay(rbtn1);
+  cout << "\nRBT N2 Tdisplay\n\n";
+  double timeTdisplayRBTn2 = timeTDisplay(rbtn2);
+  cout << "\nSPT N1 Tdisplay\n\n";
+  double timeTdisplaySPTn1 = timeTDisplay(sptn1);
+  cout << "\nSPT N2 Tdisplay\n\n";
+  double timeTdisplaySPTn2 = timeTDisplay(sptn2);
 
   cout << "\n\n\n----------------------------\n";
   cout << "     Performance Report     \n";
@@ -166,12 +126,18 @@ int main() {
                  timeInsertionBSTn1, timeInsertionBSTn2, timeInsertionRBTn1,
                  timeInsertionRBTn2, timeInsertionSPTn1, timeInsertionSPTn2);
 
-    cout << "Time to traverse (countEven())\n";
-    cout << format("BST(n1): {}, BST(n2): {}\n"
+  cout << "Time to traverse (countEven())\n";
+  cout << format("BST(n1): {}, BST(n2): {}\n"
                  "RBT(n1): {}, RBT(n2): {}\n"
                  "SPT(n1): {}, SPT(n2): {}\n",
                  timeCountEvenBSTn1, timeCountEvenBSTn2, timeCountEvenRBTn1,
                  timeCountEvenRBTn2, timeCountEvenSPTn1, timeCountEvenSPTn2);
-                 
+  cout << "Time to traverse (tdisplay())\n";
+  cout << format("BST(n1): {}, BST(n2): {}\n"
+                 "RBT(n1): {}, RBT(n2): {}\n"
+                 "SPT(n1): {}, SPT(n2): {}\n",
+                 timeTdisplayBSTn1, timeTdisplayBSTn2, timeTdisplayRBTn1,
+                 timeTdisplayRBTn2, timeTdisplaySPTn1, timeTdisplaySPTn2);
+
   return 0;
 }

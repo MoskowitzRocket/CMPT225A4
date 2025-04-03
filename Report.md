@@ -33,20 +33,25 @@ Name: Kale Moskowitz
 Student Number: 301588993
 Login ID: kom1@sfu.ca
 Chosen Data Structures:
-        Binary Search Tree (BST)
-        Red Black Tree (RBT)
-        Splay Tree (SPT)
+	Binary Search Tree (BST)
+	Red Black Tree (RBT)
+	Splay Tree (SPT)
 Set Sizes: n1 = 1000000, n2 = 10000000
 
 Timing Measurements (ms):
 ----------------------------
 Time to insert
-BST(n1): 483.801, BST(n2): 11505.282
-RBT(n1): 564.651, RBT(n2): 11119.886
-SPT(n1): 695.69, SPT(n2): 17150.872
+BST(n1): 499.88, BST(n2): 10018.108
+RBT(n1): 466.704, RBT(n2): 9227.923
+SPT(n1): 568.079, SPT(n2): 13433.029
 
 Time to traverse (countEven())
-BST(n1): 27.454, BST(n2): 374.344
-RBT(n1): 25.566, RBT(n2): 295.154
-SPT(n1): 27.578, SPT(n2): 322.281
+BST(n1): 34.699, BST(n2): 480.061
+RBT(n1): 29.874, RBT(n2): 346.527
+SPT(n1): 35.941, SPT(n2): 440.149
+Time to traverse (tdisplay())
+BST(n1): 2085.615, BST(n2): 22444.606
+RBT(n1): 1971.387, RBT(n2): 20738.407
+SPT(n1): 2269.679, SPT(n2): 24777.539
+
 ```
