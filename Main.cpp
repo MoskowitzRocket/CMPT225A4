@@ -87,8 +87,8 @@ int main() {
   spt2.tdisplay();
 
   cout << "Larger N1 and N2 size for timing report" << endl;
-  const int N1 = 100;
-  const int N2 = 2000;
+  const int N1 = 1000000;
+  const int N2 = 10000000;
   cout << "size of n1 chosen is: " << N1 << ". Size of n2 chosen is: " << N2
        << "\n";
 
@@ -113,18 +113,18 @@ int main() {
   double timeInsertionRBTn2 = timeInsertion(rbtn2, v4);
   double timeInsertionSPTn1 = timeInsertion(sptn1, v3);
   double timeInsertionSPTn2 = timeInsertion(sptn2, v4);
-  cout << "Time to insert set of size n1 into bst: " << timeInsertionBSTn1
-       << "\n";
-  cout << "Time to insert set of size n2 into bst: " << timeInsertionBSTn2
-       << "\n";
-  cout << "Time to insert set of size n1 into rbt: " << timeInsertionRBTn1
-       << "\n";
-  cout << "Time to insert set of size n2 into rbt: " << timeInsertionRBTn2
-       << "\n";
-  cout << "Time to insert set of size n1 into spt: " << timeInsertionSPTn1
-       << "\n";
-  cout << "Time to insert set of size n2 into spt: " << timeInsertionSPTn2
-       << "\n";
+//   cout << "Time to insert set of size n1 into bst: " << timeInsertionBSTn1
+//        << "\n";
+//   cout << "Time to insert set of size n2 into bst: " << timeInsertionBSTn2
+//        << "\n";
+//   cout << "Time to insert set of size n1 into rbt: " << timeInsertionRBTn1
+//        << "\n";
+//   cout << "Time to insert set of size n2 into rbt: " << timeInsertionRBTn2
+//        << "\n";
+//   cout << "Time to insert set of size n1 into spt: " << timeInsertionSPTn1
+//        << "\n";
+//   cout << "Time to insert set of size n2 into spt: " << timeInsertionSPTn2
+//        << "\n";
 
   double timeCountEvenBSTn1 = timeCountEven(bstn1);
   double timeCountEvenBSTn2 = timeCountEven(bstn2);
@@ -132,18 +132,18 @@ int main() {
   double timeCountEvenRBTn2 = timeCountEven(rbtn2);
   double timeCountEvenSPTn1 = timeCountEven(sptn1);
   double timeCountEvenSPTn2 = timeCountEven(sptn2);
-  cout << "Time to traverse bst containing n1 items with countEven: "
-       << timeCountEvenBSTn1 << "\n";
-  cout << "Time to traverse bst containing n2 items with countEven: "
-       << timeCountEvenBSTn2 << "\n";
-  cout << "Time to traverse rbt containing n1 items with countEven: "
-       << timeCountEvenRBTn1 << "\n";
-  cout << "Time to traverse rbt containing n2 items with countEven: "
-       << timeCountEvenRBTn2 << "\n";
-  cout << "Time to traverse spt containing n1 items with countEven: "
-       << timeCountEvenSPTn1 << "\n";
-  cout << "Time to traverse spt containing n2 items with countEven: "
-       << timeCountEvenSPTn2 << "\n";
+//   cout << "Time to traverse bst containing n1 items with countEven: "
+//        << timeCountEvenBSTn1 << "\n";
+//   cout << "Time to traverse bst containing n2 items with countEven: "
+//        << timeCountEvenBSTn2 << "\n";
+//   cout << "Time to traverse rbt containing n1 items with countEven: "
+//        << timeCountEvenRBTn1 << "\n";
+//   cout << "Time to traverse rbt containing n2 items with countEven: "
+//        << timeCountEvenRBTn2 << "\n";
+//   cout << "Time to traverse spt containing n1 items with countEven: "
+//        << timeCountEvenSPTn1 << "\n";
+//   cout << "Time to traverse spt containing n2 items with countEven: "
+//        << timeCountEvenSPTn2 << "\n";
 
   cout << "\n\n\n----------------------------\n";
   cout << "     Performance Report     \n";
