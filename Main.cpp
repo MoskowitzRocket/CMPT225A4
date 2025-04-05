@@ -3,7 +3,6 @@
 #include "SplayTree.h"
 #include <algorithm>
 #include <ctime>
-#include <format>
 #include <iostream>
 #include <iterator>
 #include <random>
@@ -54,8 +53,8 @@ template <typename Tree> double timeTDisplay(Tree &t) {
 
 int main() {
 
-  const int N1 = 1000000;
-  const int N2 = 10000000;
+  const int N1 = 10;
+  const int N2 = 10;
 
   cout << "size of n1 chosen is: " << N1 << ". Size of n2 chosen is: " << N2
        << "\n";
@@ -117,27 +116,19 @@ int main() {
   cout << "\tSplay Tree (SPT)\n";
   cout << "Set Sizes: n1 = " << N1 << ", n2 = " << N2 << "\n\n";
 
-  cout << "Timing Measurements (ms):\n";
-  cout << "----------------------------\n";
-  cout << "Time to insert\n";
-  cout << format("BST(n1): {}, BST(n2): {}\n"
-                 "RBT(n1): {}, RBT(n2): {}\n"
-                 "SPT(n1): {}, SPT(n2): {}\n\n",
-                 timeInsertionBSTn1, timeInsertionBSTn2, timeInsertionRBTn1,
-                 timeInsertionRBTn2, timeInsertionSPTn1, timeInsertionSPTn2);
+  cout << "=== Insertion Times (ms) ===\n";
+  cout << "  BST(n1): " << timeInsertionBSTn1 << "   |  BST(n2): " << timeInsertionBSTn2 << "\n"
+    << "  RBT(n1): " << timeInsertionRBTn1 << "   |  RBT(n2): " << timeInsertionRBTn2 << "\n"
+    << "  SPT(n1): " << timeInsertionSPTn1 << "   |  SPT(n2): " << timeInsertionSPTn2 << "\n\n";
 
-  cout << "Time to traverse (countEven())\n";
-  cout << format("BST(n1): {}, BST(n2): {}\n"
-                 "RBT(n1): {}, RBT(n2): {}\n"
-                 "SPT(n1): {}, SPT(n2): {}\n",
-                 timeCountEvenBSTn1, timeCountEvenBSTn2, timeCountEvenRBTn1,
-                 timeCountEvenRBTn2, timeCountEvenSPTn1, timeCountEvenSPTn2);
-  cout << "Time to traverse (tdisplay())\n";
-  cout << format("BST(n1): {}, BST(n2): {}\n"
-                 "RBT(n1): {}, RBT(n2): {}\n"
-                 "SPT(n1): {}, SPT(n2): {}\n",
-                 timeTdisplayBSTn1, timeTdisplayBSTn2, timeTdisplayRBTn1,
-                 timeTdisplayRBTn2, timeTdisplaySPTn1, timeTdisplaySPTn2);
+  cout << "=== Time to Traverse (countEven()) ===\n";
+  cout << "  BST(n1): " << timeCountEvenBSTn1 << "   |  BST(n2): " << timeCountEvenBSTn2 << "\n"
+    << "  RBT(n1): " << timeCountEvenRBTn1 << "   |  RBT(n2): " << timeCountEvenRBTn2 << "\n"
+    << "  SPT(n1): " << timeCountEvenSPTn1 << "   |  SPT(n2): " << timeCountEvenSPTn2 << "\n\n";
 
+  cout << "=== Time to Traverse (tdisplay()) ===\n";
+  cout << "  BST(n1): " << timeTdisplayBSTn1 << "   |  BST(n2): " << timeTdisplayBSTn2 << "\n"
+    << "  RBT(n1): " << timeTdisplayRBTn1 << "   |  RBT(n2): " << timeTdisplayRBTn2 << "\n"
+    << "  SPT(n1): " << timeTdisplaySPTn1 << "   |  SPT(n2): " << timeTdisplaySPTn2 << "\n";
   return 0;
 }
