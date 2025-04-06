@@ -52,8 +52,8 @@ template <typename Tree> double timeTDisplay(Tree &t) {
 
 int main() {
 
-  const int N1 = 1000000;
-  const int N2 = 10000000;
+  const int N1 = 10;
+  const int N2 = 20;
 
   cout << "size of n1 chosen is: " << N1 << ". Size of n2 chosen is: " << N2
        << "\n";

@@ -25,6 +25,8 @@ The goal of the experiment was to compare performance of different search trees 
 
 # 5 Table of times obtained by program
 
+
+
 # 6 Short Statement of observqations
 
 # 7 Short statement of any inferences from data
